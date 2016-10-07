@@ -51,15 +51,17 @@ jQuery( document ).ready(function(){
 				
 
 				var $parentActivate = $this.parents( settings.tabsListItem );
+				var $panelActivate = $('#' + $parentActivate.attr('aria-controls'));
 				//si el elemento clicado esta activo
 				if( $parentActivate.hasClass( settings.active ) ){
 					//cerrar
-					$parentActivate
-						.addClass( settings.active )
-						.attr('aria-selected', 'true');
-					$this.attr('tabindex', '0');
-
-
+					$panelActivate.slideUp( function(){
+						$parentActivate
+							.removeClass( settings.active )
+							.attr('aria-selected', 'true');
+						$this.attr('tabindex', '0');
+					});
+					
 				}else{//si el elemento clicado no esta activo
 					//cerrar los otros paneles
 					var $tabPanelItems = $parent.find( settings.tabsPanelItem);
@@ -67,17 +69,20 @@ jQuery( document ).ready(function(){
 						$tabPanelItems
 							.attr('aria-hidden','true')
 							.removeClass( settings.active );
+						$tabListItems.removeClass( settings.active ).attr('aria-selected', 'false');
 					});
 
-					//cambiamos atributos enlace
-					$parentActivate
-						.addClass( settings.active )
-						.attr('aria-selected', 'true');
-					$this.attr('tabindex', '0');
+					
+					//activamos el elemento nuevo
 
 					//abrimos el panel
-					var $panelActivate = $('#' + $parentActivate.attr('aria-controls'))
 					$panelActivate.slideDown( function(){
+						//cambiamos atributos enlace
+						$parentActivate
+							.attr('aria-selected', 'true')
+							.addClass( settings.active );
+						$this.attr('tabindex', '0');
+						
 						$panelActivate
 							.attr('aria-hidden','false')
 							.addClass( settings.active);

@@ -7,9 +7,7 @@
 .tabs__panel__item{
 	display: none;
 }
-.tabs__panel__item.active{
-	display: block;
-}
+
 p{
 	margin-bottom: 0;
 }
