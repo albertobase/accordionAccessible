@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>Accesibles tabs</title>
+    </head>
+    <body>
+        
+        <div class="tabs js js-tabs" data-transition="true" data-expanded="false">
+            <ul role="tablist" class="tabs__list js-tabs-list">
+                <li id="tab1-label" role="tab" aria-controls="tabPanel1" class="tabs__list__item js-tablist-item">
+                    <a href="#" title="" class="tabs__list__link js-tablist-link">
+                        <h3 class="tabs__list__title">Acordion 1</h3>
+                    </a>
+                    <div id="tabPanel1" role="tabpanel" aria-labelledby="tab1-label" class="tabs__panel__item js-tabs-panel-item">
+                        <p>texto 1</p>
+                    </div>
+                </li>
+                <li id="tab2-label" role="tab" aria-controls="tabPanel2" class="tabs__list__item js-tablist-item">
+                    <a href="#" title="" class="tabs__list__link js-tablist-link">
+                        <h3 class="tabs__list__title">Acordion 2</h3>
+                    </a>
+                    <div id="tabPanel2" role="tabpanel" aria-labelledby="tab2-label" class="tabs__panel__item js-tabs-panel-item">
+                        <p>texto 2</p>
+                    </div>
+                </li>
+                <li id="tab3-label" role="tab" aria-controls="tabPanel3" class="tabs__list__item js-tablist-item">
+                    <a href="#" title="" class="tabs__list__link js-tablist-link">
+                        <h3 class="tabs__list__title">Acordion 3</h3>
+                    </a>
+                    <div id="tabPanel3" role="tabpanel" aria-labelledby="tab3-label" class="tabs__panel__item js-tabs-panel-item">
+                        <p>texto 3</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <script src="jquery.min.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>

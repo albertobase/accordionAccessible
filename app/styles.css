@@ -1,0 +1,15 @@
+.tabs__list__link{
+	color: black;
+}
+.tabs__list__item.active{
+	background: #5d5df7;
+}
+.tabs__panel__item{
+	display: none;
+}
+.tabs__panel__item.active{
+	display: block;
+}
+p{
+	margin-bottom: 0;
+}
