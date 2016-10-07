@@ -1,5 +1,5 @@
 # AcordionAccesible
-Tabs web accesible, html y js
+Acordion web accesible, html y js
 
 The proyect contains:
 	
