@@ -11,6 +11,8 @@ jQuery( document ).ready(function(){
 				active: 'active',
 				classTabs: 'tabsItems_',
 				contadorTabs: 1,
+				itemActivate: 'itemActivate',
+				expanded: false
 		},
 		init = function(){
 			tabs();
@@ -42,14 +44,6 @@ jQuery( document ).ready(function(){
 					$tabListItems.attr('aria-selected', 'false');
 				}
 
-				//activamos el elemento clicado
-				
-				//si el elemento clicado esta activo
-					//tengo que cerrarlo
-				//si el elemento clicado no esta activo
-					//tengo que abrirlo
-				
-
 				var $parentActivate = $this.parents( settings.tabsListItem );
 				var $panelActivate = $('#' + $parentActivate.attr('aria-controls'));
 				//si el elemento clicado esta activo
@@ -58,21 +52,26 @@ jQuery( document ).ready(function(){
 					$panelActivate.slideUp( function(){
 						$parentActivate
 							.removeClass( settings.active )
-							.attr('aria-selected', 'true');
-						$this.attr('tabindex', '0');
+							.attr('aria-selected', 'true')
+							.attr('aria-expanded','false');
+						$this
+							.attr('tabindex', '0');
 					});
 					
 				}else{//si el elemento clicado no esta activo
-					//cerrar los otros paneles
-					var $tabPanelItems = $parent.find( settings.tabsPanelItem);
+					$panelActivate.addClass(settings.itemActivate);
+					//cerrar los otros paneles;
+					var $tabPanelItems = $parent.find( settings.tabsPanelItem + ':not(.'+settings.itemActivate+')' );
 					$tabPanelItems.slideUp( function(){
 						$tabPanelItems
 							.attr('aria-hidden','true')
 							.removeClass( settings.active );
-						$tabListItems.removeClass( settings.active ).attr('aria-selected', 'false');
+						$tabListItems
+							.removeClass( settings.active )
+							.attr('tabindex', '-1')
+							.attr('aria-selected', 'false')
+							.attr('aria-expanded','false');
 					});
-
-					
 					//activamos el elemento nuevo
 
 					//abrimos el panel
@@ -80,13 +79,19 @@ jQuery( document ).ready(function(){
 						//cambiamos atributos enlace
 						$parentActivate
 							.attr('aria-selected', 'true')
+							.attr('aria-expanded','true')
 							.addClass( settings.active );
-						$this.attr('tabindex', '0');
+						$this
+							.attr('tabindex', '0');
 						
 						$panelActivate
 							.attr('aria-hidden','false')
 							.addClass( settings.active);
+					
+						$panelActivate.removeClass(settings.itemActivate);
 					});
+
+					
 				}
 
 				// //panels
@@ -98,15 +103,16 @@ jQuery( document ).ready(function(){
 
 			$accordionLink.on('keydown', function(e) {
 				var $that 			= jQuery(this),
-					$parent 		= $that.parents(settings.tabs),
+					$parent 		= $that.parents(settings.target),
 					$accordionAgrup = $that.parents(settings.tabsListItem),
 					elementsTab 	= $elem.find(settings.tabsListItem).length - 1,
 					currentTab		= $accordionAgrup.index(),
-					$element,
-					expanded 		= false;
-					
+					$element;
+
+					console.log($parent.attr('data-expanded'));
+
 				if( $parent.attr('data-expanded') === "true" ){
-					expanded = true;
+					settings.expanded = true;
 				}
 
 				if (!(e.shiftKey && e.keyCode === 9)) {
@@ -125,7 +131,7 @@ jQuery( document ).ready(function(){
 									$element = $accordionList.eq(elementsTab).find(settings.tabsListLink).focus().attr('tabindex', '0');
 								}
 							}
-							if(expanded){
+							if(settings.expanded){
 								$element.trigger('click');
 							}
 						} else {
@@ -143,7 +149,7 @@ jQuery( document ).ready(function(){
 										$element = $accordionList.eq(0).find(settings.tabsListLink).focus().attr('tabindex', '0');
 									}
 								}
-								if(expanded){
+								if(settings.expanded){
 									$element.trigger('click');
 								}
 							}
@@ -169,20 +175,36 @@ jQuery( document ).ready(function(){
 		},
 		tabItemAtributesLink = function($tabListContainer, $tabListContainerActive, $elementsLinks){
 			//link
-			$tabListContainer.attr('aria-selected', 'false');
-			$elementsLinks.attr('tabindex', '-1');
+			$tabListContainer
+				.attr('aria-selected', 'false')
+				.attr('aria-expanded','false');
+			$elementsLinks
+				.attr('tabindex', '-1');
 			
 			if($tabListContainerActive.length > 0) {
-				$tabListContainerActive.attr('aria-selected', 'true');
-				$tabListContainerActive.find(settings.tabsListLink).attr('tabindex', '0');
+				$tabListContainerActive
+					.attr('aria-expanded','true')
+					.attr('aria-selected', 'true');
+				$tabListContainerActive
+					.find(settings.tabsListLink)
+					.attr('tabindex', '0');
 			}else{ //si no tenemos ninguno activo dejo el atributo a 0 el del primer elemento para que se pueda acceder
-				$tabListContainer.first().find(settings.tabsListLink).attr('tabindex', '0');
+				$tabListContainer
+					.attr('aria-expanded','true')
+					.first()
+					.find(settings.tabsListLink)
+					.attr('tabindex', '0');
 			}
 		},
 		tabItemAtributesPanel = function($tabPanelItems, $parentActivatePanel){
 			//panels
-			$tabPanelItems.attr('aria-hidden','true').removeClass( settings.active );
-			$parentActivatePanel.attr('aria-hidden','false').addClass( settings.active );
+			$tabPanelItems
+				.attr('aria-hidden','true')
+				.removeClass( settings.active );
+			$parentActivatePanel
+				.attr('aria-hidden','false')
+				.addClass( settings.active )
+				.slideDown();
 		};
 
 		// Public API
