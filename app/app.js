@@ -63,24 +63,25 @@ jQuery( document ).ready(function(){
 					$panelActivate.addClass(settings.itemActivate);
 					//cerrar los otros paneles;
 					var $tabPanelItems = $parent.find( settings.accordionPanelItem + ':not(.'+settings.itemActivate+')' );
+					$tabListItems
+							.removeClass( settings.active );
 					$tabPanelItems.slideUp( function(){
 						$tabPanelItems
 							.attr('aria-hidden','true')
 							.removeClass( settings.active );
-						$tabListItems
-							.removeClass( settings.active );
+						
 						$tabListItems.find( settings.accordionListLink )
 							.attr('tabindex', '-1')
 							.attr('aria-selected', 'false')
 							.attr('aria-expanded','false');
 					});
 					//activamos el elemento nuevo
-
+					$parentActivate
+						.addClass( settings.active );
 					//abrimos el panel
 					$panelActivate.slideDown( function(){
 						//cambiamos atributos enlace
-						$parentActivate
-							.addClass( settings.active );
+						
 						$this
 							.attr('aria-selected', 'true')
 							.attr('aria-expanded','true')
