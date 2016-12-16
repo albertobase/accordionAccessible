@@ -1,10 +1,10 @@
-.tabs__list__link{
+.accordion__list__link{
 	color: black;
 }
-.tabs__list__item.active{
+.accordion__list__item.active{
 	background: #5d5df7;
 }
-.tabs__panel__item{
+.accordion__panel__item{
 	display: none;
 }
 

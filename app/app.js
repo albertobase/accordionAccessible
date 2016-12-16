@@ -18,9 +18,9 @@ jQuery( document ).ready(function(){
 			accordion();
 		},
 		accordion = function(){
-			var $accordion = $(settings.target);
-			if ($accordion.length > 0){
-				$accordion.each(function(){
+			var $accordionElements = $(settings.target);
+			if ($accordionElements.length > 0){
+				$accordionElements.each(function(){
 					var container = $(this);
 					accordionItem(container);
 				});
