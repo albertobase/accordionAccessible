@@ -1,10 +1,10 @@
-# AcordionAccesible
-Acordion web accesible, html y js
+# AcordionAccessible
+Accordion web accessible, html y js
 
 The proyect contains:
-	
+
 	role="tablist"
-	role="tab" 
+	role="tab"
 	role="tabpanel"
 
 	aria-controls="tabPanelx"
