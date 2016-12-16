@@ -1,4 +1,4 @@
-# AcordionAccessible
+# AccordionAccessible
 Accordion web accessible, html y js
 
 The proyect contains:
